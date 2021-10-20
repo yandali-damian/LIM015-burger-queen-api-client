@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import LogIn from './components/LogIn';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <h2>
-          Hola Mundo! Este es un nuevo proyecto
+          <LogIn></LogIn>
         </h2>
         <a
           className="App-link"

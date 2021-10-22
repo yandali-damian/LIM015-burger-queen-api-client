@@ -1,14 +1,10 @@
-// import Nav from './views/Nav.js'
-import LogIn from './views/LogIn.js'
-import LogIn1 from './views/LogIn1.js'
+import AppRouter from './route/AppRouter.js';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <Nav /> */}
-        {/* <LogIn /> */}
-        <LogIn/>
+        <AppRouter/>
       </header>
     </div>
   );

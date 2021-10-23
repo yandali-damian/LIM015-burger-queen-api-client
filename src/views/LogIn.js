@@ -9,8 +9,7 @@ import { makeStyles } from '@mui/styles';
 import fondoPortada from '../img/portada2.png';
 import axios from 'axios';
 // alerta
-import Alert from '@mui/material/Alert';
-import AlertForm from './AlertForm.js';
+import {AlertForm} from '../views/AlertForm.js'
 import { useHistory } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
@@ -76,9 +75,10 @@ export default function LogIn() {
 
         if (login.email === '' || login.password === '') {
             alert('ingrese los datos!!');
+            // <AlertForm/>
         }
         else {
-            axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login, { validateStatus: false })
+            axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login)
                 .then(res => {
                     console.log(res);
                     localStorage.setItem('token', res.data.token);

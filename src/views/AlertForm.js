@@ -1,8 +1,10 @@
-import React from 'react';
-import Alert from '@mui/material/Alert';
+import * as React from 'react'
+import {Alert} from 'mui-extension'
 
-export default function AlertForm() {
+export const AlertForm = () => {
   return (
-    <Alert severity="error">This is an error alert — check it out!</Alert>
-  );
+    <>
+      <Alert deletable type="error">Ingrese sus <b>datos</b></Alert>
+    </>
+  )
 }

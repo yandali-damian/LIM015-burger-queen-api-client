@@ -1,34 +1,39 @@
 import React from 'react';
-import { Grid } from '@mui/material';
-// import { palette } from '@mui/system';
-import { makeStyles } from '@mui/styles';
 import fondoPortada from '../img/portada2.png';
+import { Grid } from '@mui/material';
 
-const useStyles =makeStyles(theme=>({
-    root:{
-        backgroundColor:'#000',
-        width:'100vh',
-        height:'100vh',
-    },
-    fotoPortada:{
-        backgroundImage:`url(${fondoPortada})`,
-        backgroundRepeat:'no-repeat',
-        width:'100vh',
-        height:'100vh',
-        backgroundSize:'100vh 100vh',
-    }
-
-}))
-
-const LogIn1 = () => {
-    const classes=useStyles()
+export default function LogInForm() {
+    // const [state, setstate] = useState(null);
+    
     return (
-        <Grid container component='main' className={classes.root}>
-            <Grid  className={classes.fotoPortada}>
+        <Grid container>
+            <Grid item xs={6}>
+                <img src={fondoPortada} alt='Burguer Cover' />
+            </Grid>
+            <Grid item xs={6}>
+                <form>
+                    <legend>Iniciar sesión</legend>
+                    <input type='text' placeholder='Nombre' required /><br />
+                    <input type='password' placeholder='Contraseña' required /><br />
+                    <button /* onClick={submitData} */>Ingresar</button>
+                </form>
             </Grid>
         </Grid>
     )
 }
 
+// const useStyles =makeStyles(theme=>({
+//     root:{
+//         backgroundColor:'#000',
+//         width:'100vh',
+//         height:'100vh',
+//     },
+//     fotoPortada:{
+//         backgroundImage:`url(${fondoPortada})`,
+//         backgroundRepeat:'no-repeat',
+//         width:'100vh',
+//         height:'100vh',
+//         backgroundSize:'100vh 100vh',
+//     }
 
-export default LogIn1
+// }))

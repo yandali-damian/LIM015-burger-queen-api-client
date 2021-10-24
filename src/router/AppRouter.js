@@ -1,6 +1,5 @@
 import React from 'react';
-// import LogIn from '../views/LogIn.js';
-import LogInForm from '../views/LogIn1'
+import LogIn from '../views/LogIn.js';
 import Home from '../views/Home.js';
 import {
   BrowserRouter as Router,
@@ -17,8 +16,7 @@ export default function AppRouter() {
             <Home />
           </Route>
           <Route path="/">
-            {/* <LogIn /> */}
-            <LogInForm />
+            <LogIn />
           </Route>
         </Switch>
       </div>

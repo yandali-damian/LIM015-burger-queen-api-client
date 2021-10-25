@@ -1,10 +1,10 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { TextField, Button, Box, Container, Grid } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import fondoPortada from '../img/portada1.png';
 import cintaLogin from '../img/cintaLogIn.png';
-import axios from 'axios';
 // alerta
 // eslint-disable-next-line no-unused-vars
 import { AlertForm } from '../views/AlertForm.js'
@@ -67,31 +67,50 @@ const theme = createTheme({
 export default function LogIn() {
     const classes = useStyles();
     const history = useHistory();
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [leyendaEmail, setLeyendaEmail] = useState('')
+    const [leyendaPass, setLeyendaPass] = useState('')
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
         const login = {
             email: data.get('email'),
             password: data.get('password'),
         };
 
-        if (login.email === '' || login.password === '') {
-            alert('ingrese los datos!!');
+        axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login)
+            .then(res => {
+                console.log(res);
+                localStorage.setItem('token', res.data.token);
+                history.push('/home');
+            })
+            .catch(err => {
+                console.log(err);
+                alert('Usuario no autorizado.')
+            });
+
+        // Validación de inputs
+        if (login.email === '') {
+            // alert('ingrese los datos!!');
             // <AlertForm/>
+            setEmailError(true)
+            setLeyendaEmail('Debe completar este campo.')
+        } else {
+            setEmailError(false)
+            setLeyendaEmail('')
         }
-        else {
-            axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login)
-                .then(res => {
-                    console.log(res);
-                    localStorage.setItem('token', res.data.token);
-                    history.push('/home');
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        if (login.password === '') {
+            setPasswordError(true)
+            setLeyendaPass('Debe completar este campo.')
+        } else {
+            setLeyendaPass('')
+            setPasswordError(false)
         }
+
+        // console.log(114, (new RegExp(/^\S+@\S+\.\S+$/)).test('admin@localhost'))
     };
 
     return (
@@ -107,16 +126,20 @@ export default function LogIn() {
                         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.componentForm} >
                             <img className={classes.headTittle} src={cintaLogin} alt='Header Title' />
                             <TextField
+                                error={emailError}
+                                helperText={leyendaEmail}
                                 margin="normal"
                                 required
                                 id="email"
-                                label="Nombre"
+                                label="Email"
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
                                 className={classes.inputValue}
                             />
                             <TextField
+                                error={passwordError}
+                                helperText={leyendaPass}
                                 margin="normal"
                                 required
                                 name="password"

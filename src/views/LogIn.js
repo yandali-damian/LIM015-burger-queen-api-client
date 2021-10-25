@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { TextField, Button, Box, Container, Grid } from '@mui/material';
+import { TextField, Button, Box, Container, Grid, FormHelperText } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import fondoPortada from '../img/portada1.png';
@@ -127,7 +127,6 @@ export default function LogIn() {
                             <img className={classes.headTittle} src={cintaLogin} alt='Header Title' />
                             <TextField
                                 error={emailError}
-                                helperText={leyendaEmail}
                                 margin="normal"
                                 required
                                 id="email"
@@ -137,9 +136,13 @@ export default function LogIn() {
                                 autoFocus
                                 className={classes.inputValue}
                             />
+                            <FormHelperText
+                                error={emailError}
+                            >
+                                {leyendaEmail}
+                            </FormHelperText>
                             <TextField
                                 error={passwordError}
-                                helperText={leyendaPass}
                                 margin="normal"
                                 required
                                 name="password"
@@ -149,6 +152,11 @@ export default function LogIn() {
                                 autoComplete="current-password"
                                 className={classes.inputValue}
                             />
+                            <FormHelperText
+                                error={passwordError}
+                            >
+                                {leyendaPass}
+                            </FormHelperText>
                             <Button
                                 color="secondary"
                                 type="submit"

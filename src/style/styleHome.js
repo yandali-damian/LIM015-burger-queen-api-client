@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import logo1 from '../img/logo1.png';
 import fondoHome from '../img/contenedor.png';
 

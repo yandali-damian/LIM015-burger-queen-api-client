@@ -1,10 +1,12 @@
-import React from 'react';
-import { TextField, Button, Box, Container, Grid } from '@mui/material';
+import axios from 'axios';
+import React, { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { TextField, Button, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import fondoPortada from '../img/portada1.png';
 import cintaLogin from '../img/cintaLogIn.png';
-import axios from 'axios';
 // alerta
 // eslint-disable-next-line no-unused-vars
 import { AlertForm } from '../views/AlertForm.js'
@@ -40,6 +42,7 @@ const useStyles = makeStyles(theme => ({
         border: '5px solid #ffffff',
         borderRadius: '50px',
         width: '80%',
+        alignSelf: 'center'
     },
 }))
 
@@ -61,37 +64,78 @@ const theme = createTheme({
         fontFamily: [
             'Averia Libre',
         ]
-    }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    fontSize: '1rem',
+                },
+            },
+        },
+    },
 });
 
 export default function LogIn() {
     const classes = useStyles();
     const history = useHistory();
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [leyendaEmail, setLeyendaEmail] = useState('')
+    const [leyendaPass, setLeyendaPass] = useState('')
+    const [password, setPassword] = React.useState("");
+    const [showPass, setShowPass] = React.useState(false);
+
+    const handleChange = () => (event) => {
+        setPassword(event.target.showPass);
+    };
+
+    const handleClickShowPassword = () => {
+        setShowPass(!showPass);
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
         const login = {
             email: data.get('email'),
             password: data.get('password'),
         };
 
-        if (login.email === '' || login.password === '') {
-            alert('ingrese los datos!!');
+        axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login)
+            .then(res => {
+                console.log(res);
+                localStorage.setItem('token', res.data.token);
+                history.push('/home');
+            })
+            .catch(err => {
+                console.log(err);
+                alert('Usuario no autorizado.')
+            });
+
+        // Validación de inputs
+        if (login.email === '') {
+            // alert('ingrese los datos!!');
             // <AlertForm/>
+            setEmailError(true)
+            setLeyendaEmail('Debe completar este campo.')
+        } else {
+            setEmailError(false)
+            setLeyendaEmail('')
         }
-        else {
-            axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login)
-                .then(res => {
-                    console.log(res);
-                    localStorage.setItem('token', res.data.token);
-                    history.push('/home');
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        if (login.password === '') {
+            setPasswordError(true)
+            setLeyendaPass('Debe completar este campo.')
+        } else {
+            setLeyendaPass('')
+            setPasswordError(false)
         }
+
+        // console.log(114, (new RegExp(/^\S+@\S+\.\S+$/)).test('admin@localhost'))
     };
 
     return (
@@ -106,26 +150,53 @@ export default function LogIn() {
                     <Container component="main" >
                         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.componentForm} >
                             <img className={classes.headTittle} src={cintaLogin} alt='Header Title' />
-                            <TextField
-                                margin="normal"
-                                required
-                                id="email"
-                                label="Nombre"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                className={classes.inputValue}
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                name="password"
-                                label="Contraseña"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                className={classes.inputValue}
-                            />
+                            <FormControl variant="outlined" fullWidth>
+                                <InputLabel htmlFor="email">Email</InputLabel>
+                                <OutlinedInput
+                                    id="email"
+                                    type="text"
+                                    label="Email"
+                                    className={classes.inputValue}
+                                    error={emailError}
+                                    name="email"
+                                    autoFocus
+                                />
+                                <FormHelperText
+                                    error={emailError}
+                                >
+                                    {leyendaEmail}
+                                </FormHelperText>
+                            </FormControl>
+
+                            <FormControl variant="outlined" fullWidth>
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <OutlinedInput
+                                    className={classes.inputValue}
+                                    id="password"
+                                    type={showPass ? "text" : "password"}
+                                    showPass={password}
+                                    onChange={handleChange("password")}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPass ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                    label="Password"
+                                    error={passwordError}
+                                    name="password"
+                                />
+                                <FormHelperText
+                                    error={passwordError}
+                                >
+                                    {leyendaPass}
+                                </FormHelperText>
+                            </FormControl>
                             <Button
                                 color="secondary"
                                 type="submit"

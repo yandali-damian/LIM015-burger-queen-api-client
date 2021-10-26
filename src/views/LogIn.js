@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { TextField, Button, Box, Container, Grid, FormHelperText } from '@mui/material';
+// eslint-disable-next-line no-unused-vars
+import { TextField, Button, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import fondoPortada from '../img/portada1.png';
@@ -40,6 +42,7 @@ const useStyles = makeStyles(theme => ({
         border: '5px solid #ffffff',
         borderRadius: '50px',
         width: '80%',
+        alignSelf: 'center'
     },
 }))
 
@@ -61,7 +64,16 @@ const theme = createTheme({
         fontFamily: [
             'Averia Libre',
         ]
-    }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    fontSize: '1rem',
+                },
+            },
+        },
+    },
 });
 
 export default function LogIn() {
@@ -71,7 +83,20 @@ export default function LogIn() {
     const [passwordError, setPasswordError] = useState(false);
     const [leyendaEmail, setLeyendaEmail] = useState('')
     const [leyendaPass, setLeyendaPass] = useState('')
+    const [password, setPassword] = React.useState("");
+    const [showPass, setShowPass] = React.useState(false);
 
+    const handleChange = () => (event) => {
+        setPassword(event.target.showPass);
+    };
+
+    const handleClickShowPassword = () => {
+        setShowPass(!showPass);
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -125,38 +150,53 @@ export default function LogIn() {
                     <Container component="main" >
                         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.componentForm} >
                             <img className={classes.headTittle} src={cintaLogin} alt='Header Title' />
-                            <TextField
-                                error={emailError}
-                                margin="normal"
-                                required
-                                id="email"
-                                label="Email"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                className={classes.inputValue}
-                            />
-                            <FormHelperText
-                                error={emailError}
-                            >
-                                {leyendaEmail}
-                            </FormHelperText>
-                            <TextField
-                                error={passwordError}
-                                margin="normal"
-                                required
-                                name="password"
-                                label="Contraseña"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                className={classes.inputValue}
-                            />
-                            <FormHelperText
-                                error={passwordError}
-                            >
-                                {leyendaPass}
-                            </FormHelperText>
+                            <FormControl variant="outlined" fullWidth>
+                                <InputLabel htmlFor="email">Email</InputLabel>
+                                <OutlinedInput
+                                    id="email"
+                                    type="text"
+                                    label="Email"
+                                    className={classes.inputValue}
+                                    error={emailError}
+                                    name="email"
+                                    autoFocus
+                                />
+                                <FormHelperText
+                                    error={emailError}
+                                >
+                                    {leyendaEmail}
+                                </FormHelperText>
+                            </FormControl>
+
+                            <FormControl variant="outlined" fullWidth>
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <OutlinedInput
+                                    className={classes.inputValue}
+                                    id="password"
+                                    type={showPass ? "text" : "password"}
+                                    showPass={password}
+                                    onChange={handleChange("password")}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPass ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                    label="Password"
+                                    error={passwordError}
+                                    name="password"
+                                />
+                                <FormHelperText
+                                    error={passwordError}
+                                >
+                                    {leyendaPass}
+                                </FormHelperText>
+                            </FormControl>
                             <Button
                                 color="secondary"
                                 type="submit"

@@ -1,80 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { TextField, Button, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { Button, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
-import fondoPortada from '../img/portada1.png';
+import { ThemeProvider } from '@mui/material/styles';
 import cintaLogin from '../img/cintaLogIn.png';
 // alerta
 // eslint-disable-next-line no-unused-vars
 import { AlertForm } from '../views/AlertForm.js'
 import { useHistory } from 'react-router';
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100vh',
-        height: '100vh',
-    },
-    fotoPortada: {
-        backgroundImage: `url(${fondoPortada})`,
-        backgroundRepeat: 'no-repeat',
-        width: '100vh',
-        height: '100vh',
-        backgroundSize: '100vh 100vh',
-    },
-    headTittle: {
-        position: 'absolute',
-        marginTop: '-28vh'
-    },
-    componentForm: {
-        height: '55vh',
-        border: '5px solid #FB970E;',
-        borderRadius: '30px',
-        display: 'flex',
-        flexFlow: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    inputValue: {
-        backgroundColor: '#ffffff',
-        border: '5px solid #ffffff',
-        borderRadius: '50px',
-        width: '80%',
-        alignSelf: 'center'
-    },
-}))
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#FB970E',
-        },
-        secondary: {
-            main: '#9CDD2B',
-            borderRadius: '30px',
-        }
-    },
-    typography: {
-        body1: {
-            fontWeight: 500,
-        },
-        fontSize: 24,
-        fontFamily: [
-            'Averia Libre',
-        ]
-    },
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    fontSize: '1rem',
-                },
-            },
-        },
-    },
-});
+import { useStyles, theme } from '../style/styleLogin.js';
 
 export default function LogIn() {
     const classes = useStyles();
@@ -83,15 +17,15 @@ export default function LogIn() {
     const [passwordError, setPasswordError] = useState(false);
     const [leyendaEmail, setLeyendaEmail] = useState('')
     const [leyendaPass, setLeyendaPass] = useState('')
-    const [password, setPassword] = React.useState("");
-    const [showPass, setShowPass] = React.useState(false);
+    const [password, setPassword] = React.useState('');
+    const [showpass, setShowPass] = React.useState(false);
 
     const handleChange = () => (event) => {
-        setPassword(event.target.showPass);
+        setPassword(event.target.showpass);
     };
 
     const handleClickShowPassword = () => {
-        setShowPass(!showPass);
+        setShowPass(!showpass);
     };
 
     const handleMouseDownPassword = (event) => {
@@ -114,7 +48,7 @@ export default function LogIn() {
             })
             .catch(err => {
                 console.log(err);
-                alert('Usuario no autorizado.')
+                // alert('Usuario no autorizado.')
             });
 
         // Validación de inputs
@@ -150,31 +84,30 @@ export default function LogIn() {
                     <Container component="main" >
                         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.componentForm} >
                             <img className={classes.headTittle} src={cintaLogin} alt='Header Title' />
-                            <FormControl variant="outlined" fullWidth>
+                            <FormControl variant="outlined" className={classes.inputValue}>
                                 <InputLabel htmlFor="email">Email</InputLabel>
                                 <OutlinedInput
                                     id="email"
                                     type="text"
                                     label="Email"
-                                    className={classes.inputValue}
                                     error={emailError}
                                     name="email"
                                     autoFocus
+                                    sx={{ borderRadius: '80px', px: 2 }}
                                 />
-                                <FormHelperText
-                                    error={emailError}
-                                >
-                                    {leyendaEmail}
-                                </FormHelperText>
                             </FormControl>
+                            <FormHelperText
+                                error={emailError}
+                            >
+                                {leyendaEmail}
+                            </FormHelperText>
 
-                            <FormControl variant="outlined" fullWidth>
+                            <FormControl variant="outlined" className={classes.inputValue} sx={{ mt: 4 }}>
                                 <InputLabel htmlFor="password">Password</InputLabel>
                                 <OutlinedInput
-                                    className={classes.inputValue}
                                     id="password"
-                                    type={showPass ? "text" : "password"}
-                                    showPass={password}
+                                    type={showpass ? "text" : "password"}
+                                    defaultValue={password}
                                     onChange={handleChange("password")}
                                     endAdornment={
                                         <InputAdornment position="end">
@@ -182,26 +115,28 @@ export default function LogIn() {
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
+                                                sx={{ mr: 1 }}
                                             >
-                                                {showPass ? <VisibilityOff /> : <Visibility />}
+                                                {showpass ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     }
                                     label="Password"
                                     error={passwordError}
                                     name="password"
+                                    sx={{ borderRadius: '80px', px: 2 }}
                                 />
-                                <FormHelperText
-                                    error={passwordError}
-                                >
-                                    {leyendaPass}
-                                </FormHelperText>
                             </FormControl>
+                            <FormHelperText
+                                error={passwordError}
+                            >
+                                {leyendaPass}
+                            </FormHelperText>
                             <Button
                                 color="secondary"
                                 type="submit"
                                 variant="contained"
-                                sx={{ mt: 8, mb: 4, width: '80%', height: '45px', borderRadius: '30px', pt: 4, pb: 4 }}
+                                sx={{ mt: 8, mb: 2, width: '80%', height: '45px', borderRadius: '30px', pt: 4, pb: 4 }}
                             >
                                 Ingresar
                             </Button>

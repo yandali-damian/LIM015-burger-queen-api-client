@@ -2,6 +2,7 @@ import React from 'react';
 import LogIn from '../views/LogIn.js';
 import Home from '../views/Home.js';
 import Mesas from '../views/Mesas.js'
+import Order from '../views/Order.js'
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +14,9 @@ export default function AppRouter() {
     <Router>
       <div>
         <Switch>
+          <Route path="/order">
+            <Order />
+          </Route>
           <Route path="/mesas">
             <Mesas />
           </Route>

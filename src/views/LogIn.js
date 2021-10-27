@@ -43,7 +43,9 @@ export default function LogIn() {
         axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login)
             .then(res => {
                 console.log(res);
+                localStorage.setItem('user', login.email);
                 localStorage.setItem('token', res.data.token);
+                // console.log(48, localStorage.getItem('token')) TODO: usar para traer el email user
                 history.push('/home');
             })
             .catch(err => {

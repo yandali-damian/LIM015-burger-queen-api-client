@@ -37,7 +37,7 @@ const classes = useStyles();
             
           </IconButton>
           <Typography  component="div" sx={{ flexGrow: 0.1 }}>
-            NAME
+            {localStorage.getItem('user')}
           </Typography>
           <ExitToAppIcon />
         </Toolbar>

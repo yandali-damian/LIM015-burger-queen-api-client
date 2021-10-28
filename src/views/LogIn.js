@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Button, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { Button, Typography, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 import cintaLogin from '../img/cintaLogIn.png';
@@ -15,10 +16,12 @@ export default function LogIn() {
     const history = useHistory();
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [leyendaEmail, setLeyendaEmail] = useState('')
-    const [leyendaPass, setLeyendaPass] = useState('')
-    const [password, setPassword] = React.useState('');
-    const [showpass, setShowPass] = React.useState(false);
+    const [leyendaEmail, setLeyendaEmail] = useState('');
+    const [leyendaPass, setLeyendaPass] = useState('');
+    // eslint-disable-next-line no-unused-vars
+    const [notUserFound, setNotUserFound] = useState('');
+    const [password, setPassword] = useState('');
+    const [showpass, setShowPass] = useState(false);
 
     const handleChange = () => (event) => {
         setPassword(event.target.showpass);
@@ -32,7 +35,7 @@ export default function LogIn() {
         event.preventDefault();
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const login = {
@@ -40,38 +43,17 @@ export default function LogIn() {
             password: data.get('password'),
         };
 
-        axios.post('https://burguer-queen-api-lim015.herokuapp.com/auth', login)
-            .then(res => {
-                console.log(res);
-                localStorage.setItem('user', login.email);
-                localStorage.setItem('token', res.data.token);
-                // console.log(48, localStorage.getItem('token')) TODO: usar para traer el email user
-                history.push('/home');
-            })
-            .catch(err => {
-                console.log(err);
-                // alert('Usuario no autorizado.')
-            });
+        let response = await fetch('https://burguer-queen-api-lim015.herokuapp.com/auth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(login)
+        });
+        response = await response.json();
+        console.log(55, response);
 
-        // Validación de inputs
-        if (login.email === '') {
-            // alert('ingrese los datos!!');
-            // <AlertForm/>
-            setEmailError(true)
-            setLeyendaEmail('Debe completar este campo.')
-        } else {
-            setEmailError(false)
-            setLeyendaEmail('')
-        }
-        if (login.password === '') {
-            setPasswordError(true)
-            setLeyendaPass('Debe completar este campo.')
-        } else {
-            setLeyendaPass('')
-            setPasswordError(false)
-        }
-
-        // console.log(114, (new RegExp(/^\S+@\S+\.\S+$/)).test('admin@localhost'))
     };
 
     return (
@@ -84,6 +66,7 @@ export default function LogIn() {
 
                 <Grid item xs={6}>
                     <Container component="main" >
+                        <Typography>{notUserFound}</Typography>
                         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.componentForm} >
                             <img className={classes.headTittle} src={cintaLogin} alt='Header Title' />
                             <FormControl variant="outlined" className={classes.inputValue}>
@@ -117,7 +100,6 @@ export default function LogIn() {
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
-                                                sx={{ mr: 1 }}
                                             >
                                                 {showpass ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>

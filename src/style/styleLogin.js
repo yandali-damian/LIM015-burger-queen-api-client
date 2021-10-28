@@ -29,7 +29,7 @@ export const useStyles = makeStyles(theme => ({
     },
     inputValue: {
         backgroundColor: '#ffffff',
-        border: '5px solid #ffffff',
+        border: '5px solid #000',
         borderRadius: '80px',
         width: '80%'
     },

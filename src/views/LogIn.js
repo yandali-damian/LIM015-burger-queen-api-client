@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import { Button, Typography, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { Button, Typography, Box, Container, Grid, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 import cintaLogin from '../img/cintaLogIn.png';
@@ -84,7 +84,6 @@ export default function LogIn() {
 
                 <Grid item xs={6}>
                     <Container component="main" >
-                        <Typography>{notUserFound}</Typography>
                         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.componentForm} >
                             <img className={classes.headTittle} src={cintaLogin} alt='Header Title' />
                             <FormControl variant="outlined" className={classes.inputValue}>
@@ -93,17 +92,11 @@ export default function LogIn() {
                                     id="email"
                                     type="text"
                                     label="Email"
-                                    error={emailError}
                                     name="email"
                                     autoFocus
                                     sx={{ borderRadius: '80px', px: 2 }}
                                 />
                             </FormControl>
-                            <FormHelperText
-                                error={emailError}
-                            >
-                                {leyendaEmail}
-                            </FormHelperText>
 
                             <FormControl variant="outlined" className={classes.inputValue} sx={{ mt: 4 }}>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -124,16 +117,10 @@ export default function LogIn() {
                                         </InputAdornment>
                                     }
                                     label="Password"
-                                    error={passwordError}
                                     name="password"
                                     sx={{ borderRadius: '80px', px: 2 }}
                                 />
                             </FormControl>
-                            <FormHelperText
-                                error={passwordError}
-                            >
-                                {leyendaPass}
-                            </FormHelperText>
                             <Button
                                 color="secondary"
                                 type="submit"

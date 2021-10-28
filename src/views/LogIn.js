@@ -1,25 +1,22 @@
 // eslint-disable-next-line no-unused-vars
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Typography, Box, Container, Grid, FormHelperText, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 import cintaLogin from '../img/cintaLogIn.png';
+
 // alerta
 // eslint-disable-next-line no-unused-vars
-import { AlertForm } from '../views/AlertForm.js'
 import { useHistory } from 'react-router';
 import { useStyles, theme } from '../style/styleLogin.js';
+
+// para el alerta
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LogIn() {
     const classes = useStyles();
     const history = useHistory();
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-    const [leyendaEmail, setLeyendaEmail] = useState('');
-    const [leyendaPass, setLeyendaPass] = useState('');
-    // eslint-disable-next-line no-unused-vars
-    const [notUserFound, setNotUserFound] = useState('');
     const [password, setPassword] = useState('');
     const [showpass, setShowPass] = useState(false);
 
@@ -52,9 +49,30 @@ export default function LogIn() {
             body: JSON.stringify(login)
         });
         response = await response.json();
-        console.log(55, response);
+        // console.log(55, response);//token
+        if(response.message) {
+            mensaje(response.message);
+        }else if(response.token){
+            // console.log('mensaje', res.message);
+            // console.log(data);
+                localStorage.setItem('user', login.email);
+                history.push('/home');
+        }
 
     };
+
+    const mensaje=(mensaje)=>{
+        toast.error(mensaje +'🍔!', {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+        
 
     return (
         <ThemeProvider theme={theme} >
@@ -121,9 +139,11 @@ export default function LogIn() {
                                 type="submit"
                                 variant="contained"
                                 sx={{ mt: 8, mb: 2, width: '80%', height: '45px', borderRadius: '30px', pt: 4, pb: 4 }}
+                                
                             >
                                 Ingresar
                             </Button>
+                            <ToastContainer/>
                         </Box>
                     </Container>
                 </Grid>

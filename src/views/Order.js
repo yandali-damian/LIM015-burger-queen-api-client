@@ -3,7 +3,6 @@ import { Button, Grid, ButtonGroup, Box } from '@mui/material';
 import { useStyles } from '../style/styleOrder.js';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-
 export default function Pedidos() {
     const classes = useStyles();
 

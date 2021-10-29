@@ -1,12 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import { Button, Typography, Box, Container, Grid, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { Button, Box, Container, Grid, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 import cintaLogin from '../img/cintaLogIn.png';
-
-// alerta
-// eslint-disable-next-line no-unused-vars
 import { useHistory } from 'react-router';
 import { useStyles, theme } from '../style/styleLogin.js';
 
@@ -55,8 +52,8 @@ export default function LogIn() {
         }else if(response.token){
             // console.log('mensaje', res.message);
             // console.log(data);
-                localStorage.setItem('user', login.email);
-                history.push('/home');
+            localStorage.setItem('user', login.email);
+            history.push('/customers');
         }
 
     };

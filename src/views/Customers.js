@@ -6,7 +6,6 @@ import logo1 from '../img/logo1.png';
 import headerMesas from '../img/mesas.png';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
-
 export default function Customers() {
     const classes = useStyles();
     const history = useHistory();
@@ -21,7 +20,7 @@ export default function Customers() {
                         id={mesa}
                         onClick={saveNumMesa}
                         // onClick={changeBackground}
-                        className={classes.shadowSelect ? classes.miniBox : classes.shadowSelect}
+                        className={classes.miniBox}
                     >
                         {mesa}
                     </Box>

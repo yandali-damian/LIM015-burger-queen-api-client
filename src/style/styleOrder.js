@@ -11,6 +11,12 @@ export const useStyles = makeStyles(theme => ({
   },
   orderMenu: {
     fontSize: '36px',
-    margin: '0 10px'
+    padding: '0 20px'
+  },
+  btnDelete: {
+    fontSize: '90px',
+    '&:hover': {
+      color: 'rgba(225, 0, 0, 0.45)'
+    }
   }
 }))

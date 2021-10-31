@@ -43,5 +43,15 @@ export const useStyles = makeStyles(theme => ({
     padding: '20px 0',
     margin: '25px 35px',
     fontSize: '40px'
+  },
+  shadowSelect: {
+    textAlign: 'center',
+    border: '3px solid #fff',
+    borderRadius: '30px',
+    background: '#000efe40',
+    color: '#fff',
+    padding: '20px 0',
+    margin: '25px 35px',
+    fontSize: '40px'
   }
 }));

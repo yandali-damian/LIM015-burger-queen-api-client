@@ -1,13 +1,12 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { Button, Box, Container, Grid, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { ThemeProvider } from '@mui/material/styles';
-import cintaLogin from '../img/cintaLogIn.png';
 import { useHistory } from 'react-router';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import cintaLogin from '../img/cintaLogIn.png';
+// Config de estilos MUI
 import { useStyles, theme } from '../style/styleLogin.js';
-
-// para el alerta
+import { ThemeProvider } from '@mui/material/styles';
+// Para el alerta
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -68,8 +67,7 @@ export default function LogIn() {
             draggable: true,
             progress: undefined,
             });
-    }
-        
+    }  
 
     return (
         <ThemeProvider theme={theme} >
@@ -86,6 +84,7 @@ export default function LogIn() {
                             <FormControl variant="outlined" className={classes.inputValue}>
                                 <InputLabel htmlFor="email">Email</InputLabel>
                                 <OutlinedInput
+                                    role="emailInput"
                                     id="email"
                                     type="text"
                                     label="Email"

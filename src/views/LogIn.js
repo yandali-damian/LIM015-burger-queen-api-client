@@ -73,8 +73,7 @@ export default function LogIn() {
         <ThemeProvider theme={theme} >
             <Grid container direction="row" alignItems="center" sx={{ background: 'black' }}>
                 <Grid item xs={6} component='main' className={classes.root}>
-                    <Grid className={classes.fotoPortada}>
-                    </Grid>
+                    <Grid className={classes.fotoPortada}></Grid>
                 </Grid>
 
                 <Grid item xs={6}>

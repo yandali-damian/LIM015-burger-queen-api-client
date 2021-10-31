@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import { Button, Typography, Box, Container, Grid, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { Button, Box, Container, Grid, FormControl, OutlinedInput, InputLabel, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 import cintaLogin from '../img/cintaLogIn.png';
@@ -56,6 +56,7 @@ export default function LogIn() {
             // console.log('mensaje', res.message);
             // console.log(data);
                 localStorage.setItem('user', login.email);
+                localStorage.setItem('token', response.token);
                 history.push('/home');
         }
 
@@ -78,8 +79,7 @@ export default function LogIn() {
         <ThemeProvider theme={theme} >
             <Grid container direction="row" alignItems="center" sx={{ background: 'black' }}>
                 <Grid item xs={6} component='main' className={classes.root}>
-                    <Grid className={classes.fotoPortada}>
-                    </Grid>
+                    <Grid className={classes.fotoPortada}></Grid>
                 </Grid>
 
                 <Grid item xs={6}>

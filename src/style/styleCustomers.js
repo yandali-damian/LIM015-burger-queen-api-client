@@ -42,6 +42,10 @@ export const useStyles = makeStyles(theme => ({
     color: '#fff',
     padding: '20px 0',
     margin: '25px 35px',
-    fontSize: '40px'
+    fontSize: '40px',
+    '&:active': {
+      background: '#fff',
+      color: '#000'
+    }
   }
 }));

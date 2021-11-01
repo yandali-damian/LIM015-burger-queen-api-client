@@ -1,19 +1,30 @@
-import React from 'react'
-import { Button, Grid, ButtonGroup, Box } from '@mui/material';
-import { useStyles } from '../style/styleOrder.js';
+import React, { useState } from 'react'
+import { Button, Grid, ButtonGroup } from '@mui/material';
+import { useStyle } from '../style/styleOrder.js';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-
 export default function Pedidos() {
-    const classes = useStyles();
+    const classe = useStyle();
+    const [count, setCount] = useState(1);
 
-    const [count, setCount] = React.useState(1);
+    const pedidos = ['hamburguesa', 'gaseosa', 'agua', 'cheese burger']
+
+    const selectOrder = (arrayMenu) => {
+        const enterOrder = arrayMenu.filter((item) => {
+            if (item.indexOf('agua') !== -1) {
+                return item
+            } else {
+                return ''
+            }
+        })
+        return enterOrder
+    }
+    console.log(17, selectOrder(pedidos))
 
     return (
-        <Box sx={{ width: '50%' }}>
-        <Grid container direction="column" className={classes.containerOrderList} >
-            <Grid item xs={1}>
-                <ButtonGroup variant="contained" color="secondary" size="medium">
+        <Grid container direction="row" className={classe.containerOrderList} >
+            <Grid item xs>
+                <ButtonGroup variant="contained" color="primary" size="medium">
                     <Button
                         aria-label="añadir"
                         onClick={() => {
@@ -32,35 +43,14 @@ export default function Pedidos() {
                         -
                     </Button>
                 </ButtonGroup>
-                <span className={classes.orderMenu}>Pedido</span>
-                <DeleteForeverIcon sx={{ fontSize: 40 }} />
             </Grid>
-            <Grid item xs={1}>
-                <ButtonGroup variant="contained" color="success" size="medium">
-                    <Button
-                        aria-label="quitar"
-                        onClick={() => {
-                            setCount(Math.max(count - 1, 0));
-                        }}
-                    >
-                        -
-                    </Button>
-                    <Button>{count}</Button>
-                    <Button
-                        aria-label="añadir"
-                        onClick={() => {
-                            setCount(count + 1);
-                        }}
-                    >
-                        +
-                    </Button>
-                </ButtonGroup>
-                <span className={classes.orderMenu}>Pedido</span>
-                <DeleteForeverIcon sx={{ fontSize: 40 }} />
+            <Grid item xs={7}>
+                <span className={classe.orderMenu}>{selectOrder(pedidos)}</span>
             </Grid>
-
+            <Grid item xs>
+                <DeleteForeverIcon className={classe.btnDelete} />
+            </Grid>
         </Grid>
-        </Box>
     )
 }
 

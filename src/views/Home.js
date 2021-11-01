@@ -7,9 +7,10 @@ import IconButton from '@mui/material/IconButton';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Stack, Button, Grid } from '@mui/material';
 import {useStyles} from '../style/styleHome.js';
+import {useStyle} from '../style/styleOrder.js';
 import logo1 from '../img/logo1.png';
 import {getProducts} from '../services/Product.js';
-
+import Pedidos from '../views/Order.js'
 
 export default function Home() {
 
@@ -47,7 +48,8 @@ export default function Home() {
     });
   }
 
-const classes = useStyles();
+  const classes = useStyles();
+  const classe = useStyle();
   return (
     // <ThemeProvider theme={theme}>
     <Box className={classes.fondoHome} >
@@ -125,8 +127,11 @@ const classes = useStyles();
                           )}
                     </ul>
                 </Grid>
-                <Grid item xs={6}>
-                  
+                <Grid item xs={6} component='main' sx={{backgroundColor: 'rgba(1 1 1 / 34%)'}}>
+                  <h2 style={{color:'#fff'}}>Lista de Pedidos</h2>
+                  {/* <Grid direction="row"> */}
+                    <Pedidos className={classe.containerOrderList} />
+                  {/* </Grid> */}
                 </Grid>
       </Grid>
     </Box>

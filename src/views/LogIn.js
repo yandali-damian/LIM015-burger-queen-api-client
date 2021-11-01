@@ -52,6 +52,7 @@ export default function LogIn() {
             // console.log('mensaje', res.message);
             // console.log(data);
             localStorage.setItem('user', login.email);
+            localStorage.setItem('token', response.token);
             history.push('/customers');
         }
 

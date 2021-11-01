@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Button, Grid, ButtonGroup, Box } from '@mui/material';
-import { useStyles } from '../style/styleOrder.js';
+import { Button, Grid, ButtonGroup } from '@mui/material';
+import { useStyle } from '../style/styleOrder.js';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export default function Pedidos() {
-    const classes = useStyles();
+    const classe = useStyle();
     const [count, setCount] = useState(1);
 
     const pedidos = ['hamburguesa', 'gaseosa', 'agua', 'cheese burger']
@@ -22,37 +22,35 @@ export default function Pedidos() {
     console.log(17, selectOrder(pedidos))
 
     return (
-        <Box sx={{ width: '50%' }}>
-            <Grid container direction="row" className={classes.containerOrderList} >
-                <Grid item xs>
-                    <ButtonGroup variant="contained" color="primary" size="medium">
-                        <Button
-                            aria-label="añadir"
-                            onClick={() => {
-                                setCount(count + 1);
-                            }}
-                        >
-                            +
-                        </Button>
-                        <Button>{count}</Button>
-                        <Button
-                            aria-label="quitar"
-                            onClick={() => {
-                                setCount(Math.max(count - 1, 0));
-                            }}
-                        >
-                            -
-                        </Button>
-                    </ButtonGroup>
-                </Grid>
-                <Grid item xs={8}>
-                    <span className={classes.orderMenu}>{selectOrder(pedidos)}</span>
-                </Grid>
-                <Grid item xs>
-                    <DeleteForeverIcon className={classes.btnDelete} />
-                </Grid>
+        <Grid container direction="row" className={classe.containerOrderList} >
+            <Grid item xs>
+                <ButtonGroup variant="contained" color="primary" size="medium">
+                    <Button
+                        aria-label="añadir"
+                        onClick={() => {
+                            setCount(count + 1);
+                        }}
+                    >
+                        +
+                    </Button>
+                    <Button>{count}</Button>
+                    <Button
+                        aria-label="quitar"
+                        onClick={() => {
+                            setCount(Math.max(count - 1, 0));
+                        }}
+                    >
+                        -
+                    </Button>
+                </ButtonGroup>
             </Grid>
-        </Box>
+            <Grid item xs={7}>
+                <span className={classe.orderMenu}>{selectOrder(pedidos)}</span>
+            </Grid>
+            <Grid item xs>
+                <DeleteForeverIcon className={classe.btnDelete} />
+            </Grid>
+        </Grid>
     )
 }
 

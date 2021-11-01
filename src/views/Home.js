@@ -31,10 +31,8 @@ export default function Home() {
     });
   }
 
-  const ListarMenu = () => {
-    // console.log('lista de Menu');
-    getProducts('menú').then(producto => {
-      // console.log(producto);
+  const ListarMenu = () =>{
+    getProducts('menú').then(producto=>{
       setDesayunos('');
       setBebidas('');
       setMenu(producto);
@@ -42,9 +40,8 @@ export default function Home() {
     });
   }
 
-  const ListarBebidas = () => {
-    // console.log('lista de Menu');
-    getProducts('bebidas').then(producto => {
+  const ListarBebidas = () =>{
+    getProducts('bebidas').then(producto=>{
       setDesayunos('');
       setMenu('');
       setBebidas(producto);

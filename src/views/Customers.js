@@ -32,7 +32,7 @@ export default function Customers() {
     
     const saveNumMesa = (event) => {
         console.log('Mesa seleccionada: ', event.target.id);
-        localStorage.setItem(`Mesa: ${event.target.id}`, event.target.id);
+        localStorage.setItem(`Mesa ${event.target.id}`, event.target.id);
         history.push('/home');
         // setSelMesa(event.target.id)
     }

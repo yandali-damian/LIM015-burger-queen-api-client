@@ -86,7 +86,7 @@ export default function Home() {
           </Toolbar>
         </AppBar>
 
-        <Grid container direction="row" alignItems="center" >
+        <Grid container direction="row" textAlign="center" >
           <Grid item xs={6} component='main' sx={{ backgroundColor: 'rgba(1 1 1 / 34%)' }}>
             <Stack spacing={2} direction="row" margin="3vh">
               <Button variant="contained" onClick={ListarDesayuno} size="large" sx={{ borderRadius: '30px', backgroundColor: '#fff', color: 'black', border: '3px solid #683524' }} >
@@ -138,11 +138,8 @@ export default function Home() {
               )}
             </ul>
           </Grid>
-          <Grid item xs={6} component='main' color='warning'>
-            <h2 style={{ color: '#fff' }}>Lista de Pedidos</h2>
-            {/* <Grid direction="row"> */}
+          <Grid item xs={6} component='main'>
             <Pedidos className={classe.containerOrderList} />
-            {/* </Grid> */}
           </Grid>
         </Grid>
       </Box>

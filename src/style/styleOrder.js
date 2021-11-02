@@ -1,16 +1,18 @@
 import { makeStyles } from "@mui/styles";
 
-export const useStyles = makeStyles(theme => ({
+export const useStyle = makeStyles(theme => ({
   containerOrderList: {
-    margin: '20px',
-    padding: '35px 45px',
-    background: 'rgba(0, 0, 0, 0.45)',
-    borderRadius: '30px',
-    color: '#fff',
-    width: '80%'
+    padding: '25px 0',
+    color: '#fff'
   },
   orderMenu: {
     fontSize: '36px',
-    margin: '0 10px'
+    padding: '0 20px'
+  },
+  btnDelete: {
+    fontSize: '90px',
+    '&:hover': {
+      color: 'rgba(225, 0, 0, 0.45)'
+    }
   }
 }))

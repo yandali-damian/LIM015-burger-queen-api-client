@@ -10,6 +10,8 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 // import { theme } from '../style/styleLogin.js';
 
+import { getProducts } from '../services/Product.js';
+
 const themeHome = createTheme({
     palette: {
         primary: {
@@ -27,53 +29,30 @@ const themeHome = createTheme({
     }
 });
 
-const handleSubmit = async () => {
-
-    const response = await fetch('https://burguer-queen-api-lim015.herokuapp.com/orders', {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    });
-
-    const data = await response.json();
-    return data.filter((item) => {
-        return item.products.map((el) => {
-            const currentOrder = {
-                'client': item.client,
-                'order': el.productId.name,
-                'price': el.productId.price
-            }
-            console.log({
-                'client': item.client,
-                'order': el.productId.name,
-                'price': el.productId.price
-            })
-            return currentOrder
-        })
-        // console.log(39, item.products)
-        // return item._id;
-        // return producto.type === tipoProducto;
-    });
-    // console.log(42, result) // Array de objetos (lo mismo que línea 37)
-}
-console.log(44, handleSubmit()) // Promesa pendiente
+// const arrayPedidos = [];
 
 export default function Pedidos() {
     const classe = useStyle();
     const [count, setCount] = useState(1);
+    const [products, setProducts] = useState([]);
 
-    const pedidos = ['hamburguesa', 'gaseosa', 'Agua', 'cheese burger']
-
-    const selectOrder = (arrayMenu) => {
-        const enterOrder = arrayMenu.filter((item) => {
-            if (item.indexOf('Agua') !== -1) {
-                return item
-            } else {
-                return ''
-            }
-        })
-        return enterOrder + ' s/. 2.50'
+    const ListarProductos = () => {
+        getProducts('desayuno').then((producto) => {
+            console.log(41, producto);
+            setProducts(producto);
+        });
     }
-    // console.log(17, selectOrder(pedidos))
+    ListarProductos()
+
+    const AgregarPedido = item => {
+        // Condición filter si existe que ya no se agreguen
+        if (products.indexOf(item) === -1) {
+            products.push(item)
+            console.log(products)
+            // document.querySelector('.spanPedidos').textContent = arrayPedidos
+        }
+    }
+    AgregarPedido('Agua')
 
     return (
         <>
@@ -105,41 +84,14 @@ export default function Pedidos() {
                     </ThemeProvider>
                 </Grid>
                 <Grid item xs={6}>
-                    <span className={classe.orderMenu}>{selectOrder(pedidos)}</span>
+                    <span className={classe.orderMenu}>Agua s/.2.50</span>
                 </Grid>
                 <Grid item xs={2}>
                     <DeleteForeverIcon className={classe.btnDelete} />
                 </Grid>
                 <Grid item xs>
-                    {/* <Stack direction="row">
-                        <Button
-                            sx={{ borderRadius: '50px', background: '#fff', color: '#000', padding: '0', fontSize: '20px' }}
-                            aria-label="añadir"
-                            onClick={() => {
-                                setCount(count + 1);
-                            }}
-                        >
-                            +
-                        </Button>
-                        <Button
-                            variant="contained"
-                            sx={{ borderRadius: '50px', color: '#fff', padding: '0', fontSize: '20px' }}
-                        >
-                            {count}
-                        </Button>
-                        <Button
-                            sx={{ borderRadius: '40%', background: '#fff', color: '#000', padding: '0'}}
-                            aria-label="quitar"
-                            onClick={() => {
-                                setCount(Math.max(count - 1, 0));
-                            }}
-                        >
-                            -
-                        </Button>
-                    </Stack> */}
-                    {/* </Grid> */}
                     <Grid item xs={7}>
-                        <span className={classe.orderMenu}>{selectOrder(pedidos)}</span>
+                        <span className={classe.orderMenu}>Hamburguesa s/.5.00</span>
                     </Grid>
                     <Grid item xs>
                         <DeleteForeverIcon className={classe.btnDelete} />
@@ -160,3 +112,32 @@ export default function Pedidos() {
     )
 }
 
+const handleSubmit = async () => {
+
+    const response = await fetch('https://burguer-queen-api-lim015.herokuapp.com/orders', {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+
+    const data = await response.json();
+    return data.filter((item) => {
+        return item.products.map((el) => {
+            const currentOrder = {
+                'client': item.client,
+                'order': el.productId.name,
+                'price': el.productId.price
+            }
+            console.log({
+                'client': item.client,
+                'order': el.productId.name,
+                'price': el.productId.price
+            })
+            return currentOrder
+        })
+        // console.log(39, item.products)
+        // return item._id;
+        // return producto.type === tipoProducto;
+    });
+    // console.log(42, result) // Array de objetos (lo mismo que línea 37)
+}
+console.log(44, handleSubmit()) // Promesa pendiente

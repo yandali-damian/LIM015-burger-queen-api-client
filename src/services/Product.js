@@ -7,7 +7,7 @@ export async function getProducts(tipoProducto) {
 
     const data = await response.json();
         return data.filter(producto=>{
-            console.log(10, producto)
+            // console.log(10, producto)
             return producto.type === tipoProducto;
         });
 }

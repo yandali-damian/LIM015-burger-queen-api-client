@@ -49,31 +49,37 @@ export default function Pedidos() {
         <>
             <Grid container direction="row" className={classe.containerOrderList}>
                 <Grid item xs={4} justifyContent="center">
-                    <input placeholder='Nombre' style={{ color: '#000', background: '#fff', borderRadius: '20px', padding: '12px'}}/>
+                    <input placeholder='Nombre del cliente' style={{ color: '#000', background: '#fff', borderRadius: '20px', padding: '12px'}}/>
                 </Grid>
                 <Grid item xs={8} >
                     <h1 style={{ color: '#fff', textAlign: 'center' }}>Lista de Pedidos</h1>
                 </Grid>
-            </Grid>
-            <Grid container direction="row" className={classe.containerOrderList}>
-            <ThemeProvider theme={themeHome}>
-                    <Box sx={{ "& > :not(style)": { m: 0.2 } }}>
-                        <Fab size="small" color="primary" aria-label="añadir" background="#FB970E" onClick={() => {
-                                setCount(count + 1);
-                            }}>
-                        +
-                        </Fab>
-                        <Fab size="small" color="#fff" variant="contained">
-                        1
-                        </Fab>
-                        <Fab size="small" color="primary" aria-label="quitar" onClick={() => {
-                                setCount(Math.max(count - 1, 0));
-                            }}>
-                        -
-                        </Fab>
-                    </Box>
-                </ThemeProvider>
-                {/* <Grid item xs> */}
+            </Grid>*/}
+            <Grid container direction="row" className={classe.containerOrderList}> 
+                <Grid item xs={4}>
+                    <ThemeProvider theme={themeHome}>
+                        <Box sx={{ "& > :not(style)": { m: 0.2 } }}>
+                            <Fab size="small" color="primary" aria-label="quitar" onClick={() => {
+                                    setCount(Math.max(count - 1, 0));
+                                }}>
+                            -
+                            </Fab>
+                            <input style={{ color: '#000', background: '#fff', borderRadius: '7px', padding: '12px', width:'20px'}}/>
+                            <Fab size="small" color="primary" aria-label="añadir" background="#FB970E" onClick={() => {
+                                    setCount(count + 1);
+                                }}>
+                            +
+                            </Fab>
+                        </Box>
+                    </ThemeProvider>
+                </Grid>
+                <Grid item xs={6}>
+                    <span className={classe.orderMenu}>{selectOrder(pedidos)}</span>
+                </Grid>
+                <Grid item xs={2}>
+                    <DeleteForeverIcon className={classe.btnDelete} />
+                </Grid>
+                <Grid item xs>
                     {/* <Stack direction="row">
                         <Button
                             sx={{ borderRadius: '50px', background: '#fff', color: '#000', padding: '0', fontSize: '20px' }}

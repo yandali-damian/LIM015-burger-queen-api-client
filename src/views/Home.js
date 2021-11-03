@@ -19,6 +19,17 @@ import { createTheme } from "@mui/material/styles";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useHistory } from 'react-router';
 
+const arrayPedidos = [];
+
+// Filtra pedidos repetidos
+// const arrProductos = ['burger', 'agua', 'soda']
+// const filterPedidos = (product) => {
+//   return (arrProductos.indexOf(product) === -1) ? arrProductos.push(product) : ''
+// }
+// filterPedidos('cake')
+// filterPedidos('soda')
+// console.log(arrProductos)
+
 export default function Home() {
 
   const [desayunos, setDesayunos] = useState([]);
@@ -69,11 +80,17 @@ export default function Home() {
   });
   /*funcion para agregar un pedido */
 
-  const AgregarPedido = producto => (e) => {
-    // console.log(producto);
-    const arrayPedidos = [];
-    arrayPedidos.push(producto)
-    document.querySelector('.spanPedidos').textContent = producto
+  const AgregarPedido = producto => () => {
+    // if (!producto.name) {
+    //   console.log('click en el mismo pedido')
+    // }
+    // arrayPedidos.push(producto)
+
+    // TODO: Condición filter si existe que ya no se agreguen
+    if (arrayPedidos.indexOf(producto) === -1) {
+      arrayPedidos.push(producto)
+      document.querySelector('.spanPedidos').textContent = arrayPedidos
+    }
   }
 
   const classes = useStyles();
